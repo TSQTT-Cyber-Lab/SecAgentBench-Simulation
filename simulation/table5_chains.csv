@@ -1,0 +1,4 @@
+Chain,Layers,Chained_ASR,CLAF,Detection_Probability
+A1→A4→A8,Data-Control-Logic,0.71,1.24,0.39
+A3→A6→A9,Data-Control-Logic,0.67,1.18,0.42
+A2→A4→A9,Data-Control-Logic,0.64,1.15,0.45

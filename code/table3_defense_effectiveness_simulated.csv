@@ -1,0 +1,10 @@
+Defense,DDR,Residual_ASR,FPR_D,DOI
+Bundle_All,0.285,0.389,0.129,1.48
+Bundle_D1_D3_D4_D6,0.251,0.472,0.092,1.31
+D2_Tool_Attestation,0.165,0.613,0.013,1.11
+D5_Consensus_Protocol,0.151,0.628,0.061,1.21
+D3_Response_Verification,0.152,0.64,0.026,1.15
+D4_Agent_Isolation,0.106,0.662,0.017,1.12
+D1_Input_Sanitization,0.137,0.666,0.052,1.13
+D6_Behavioral_Monitor,0.14,0.672,0.039,1.1
+None,0.0,0.822,0.0,1.05

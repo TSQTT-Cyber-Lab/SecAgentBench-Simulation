@@ -1,0 +1,10 @@
+Attack,Layer,P1,P2,P3
+A1_SIEM_Injection,Data,0.754,0.752,0.814
+A2_Alert_Crafting,Data,0.71,0.708,0.756
+A3_Context_Poison,Data,0.712,0.71,0.738
+A4_Tool_Poisoning,Control,0.784,0.778,0.846
+A5_Rug_Pull,Control,0.702,0.7,0.722
+A6_Resp_Spoofing,Control,0.752,0.746,0.81
+A7_Collusion,Logic,0.722,0.718,0.77
+A8_Priv_Escalation,Logic,0.766,0.762,0.822
+A9_Goal_Hijacking,Logic,0.75,0.744,0.8
