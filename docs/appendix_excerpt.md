@@ -343,7 +343,7 @@ table5_crosslayer_chaining_simulated.csv
 ### C.6 Code availability statement
 
 Complete simulation code and result tables are available at:
-https://github.com/TSQTT-Cyber-Lab/secagentbench-simulation-repro
+https://github.com/TSQTT-Cyber-Lab/SecAgentBench-Simulation
 
 Prior to acceptance, code and data are available from the
 corresponding author upon reasonable request.
