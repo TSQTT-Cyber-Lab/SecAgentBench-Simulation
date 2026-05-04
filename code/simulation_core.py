@@ -29,7 +29,13 @@ from typing import Dict, List, Tuple
 
 import numpy as np
 import pandas as pd
+import os
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+folder_path = os.path.join(parent_dir, "simulation")
+if not os.path.exists(folder_path):
+    os.makedirs(folder_path)
 
 # ══════════════════════════════════════════════════════════════════════
 # 1. DATACLASSES
@@ -113,7 +119,7 @@ ATTACKS: Dict[str, Attack] = {
 }
 
 DEFENSES: Dict[str, Defense] = {
-    "None":                     Defense("None",                     0.00, 0.00, 0.000, 0.000),
+    "No Defense":                     Defense("No Defense",                     0.00, 0.00, 0.000, 0.000),
     "D1_Input_Sanitization":    Defense("D1_Input_Sanitization",    0.48, 0.30, 0.050, 0.080),
     "D2_Tool_Attestation":      Defense("D2_Tool_Attestation",      0.55, 0.42, 0.019, 0.060),
     "D3_Response_Verification": Defense("D3_Response_Verification", 0.51, 0.36, 0.032, 0.100),
@@ -381,7 +387,7 @@ def make_table4(df: pd.DataFrame) -> pd.DataFrame:
     Filter: Platform P2 | select defenses | medium workload.
     Columns: Defense, Static, Defense_Aware, Adaptive.
     """
-    keep_defs = ["None", "Bundle_D1_D3_D4_D6", "Bundle_All"]
+    keep_defs = ["No Defense", "Bundle_D1_D3_D4_D6", "Bundle_All"]
     mask = (
         (df["Platform"] == "P2")
         & (df["Defense"].isin(keep_defs))
@@ -478,13 +484,13 @@ def main() -> None:
     # ── Full grid ────────────────────────────────────────────────────
     print("[1/6] Running full factorial grid simulation ...")
     df = run_full_grid(cfg)
-    df.to_csv("secagentbench_simulation_full_grid.csv", index=False)
+    df.to_csv(os.path.join(folder_path,"secagentbench_simulation_full_grid.csv"), index=False)
     print(f"      Saved: secagentbench_simulation_full_grid.csv  ({len(df):,} rows)\n")
 
     # ── Table 1 ──────────────────────────────────────────────────────
     print("[2/6] Generating Table 1 – Baseline platform characteristics ...")
     t1 = make_table1()
-    t1.to_csv("table1_baseline_platforms.csv", index=False)
+    t1.to_csv(os.path.join(folder_path,"table1_baseline_platforms.csv"), index=False)
     print("      Saved: table1_baseline_platforms.csv")
     print(t1.to_string(index=False))
     print()
@@ -492,7 +498,7 @@ def main() -> None:
     # ── Table 2 ──────────────────────────────────────────────────────
     print("[3/6] Generating Table 2 – Isolated attack effectiveness ...")
     t2 = make_table2(df)
-    t2.to_csv("table2_isolated_attacks_simulated.csv", index=False)
+    t2.to_csv(os.path.join(folder_path,"table2_isolated_attacks_simulated.csv"), index=False)
     print("      Saved: table2_isolated_attacks_simulated.csv")
     print(t2.to_string(index=False))
     print()
@@ -500,7 +506,7 @@ def main() -> None:
     # ── Table 3 ──────────────────────────────────────────────────────
     print("[4/6] Generating Table 3 – Defense effectiveness (P2) ...")
     t3 = make_table3(df)
-    t3.to_csv("table3_defense_effectiveness_simulated.csv", index=False)
+    t3.to_csv(os.path.join(folder_path,"table3_defense_effectiveness_simulated.csv"), index=False)
     print("      Saved: table3_defense_effectiveness_simulated.csv")
     print(t3.to_string(index=False))
     print()
@@ -508,17 +514,17 @@ def main() -> None:
     # ── Table 4 ──────────────────────────────────────────────────────
     print("[5/6] Generating Table 4 – Adaptive attacker analysis (P2) ...")
     t4 = make_table4(df)
-    t4.to_csv("table4_adaptive_attacker_simulated.csv", index=False)
+    t4.to_csv(os.path.join(folder_path,"table4_adaptive_attacker_simulated.csv"), index=False)
     print("      Saved: table4_adaptive_attacker_simulated.csv")
-    print(t3.to_string(index=False))
+    print(t4.to_string(index=False))
     print()
 
     # ── Table 5 ──────────────────────────────────────────────────────
     print("[6/6] Generating Table 5 – Cross-layer chaining (P2) ...")
-    t4 = make_table4(df)
-    t4.to_csv("table5_crosslayer_chaining_simulated.csv", index=False)
+    t5 = make_table5(df,cfg)
+    t5.to_csv(os.path.join(folder_path,"table5_crosslayer_chaining_simulated.csv"), index=False)
     print("      Saved: table5_crosslayer_chaining_simulated.csv")
-    print(t3.to_string(index=False))
+    print(t5.to_string(index=False))
     print()
 
     print("Simulation complete.")
